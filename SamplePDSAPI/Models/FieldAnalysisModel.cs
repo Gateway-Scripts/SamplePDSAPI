@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace SamplePDSAPI.Models
 {
+    /// <summary>
+    /// Model to hold the Analysis description and Gamma Analysis Image.
+    /// </summary>
     public class FieldAnalysisModel
     {
         public string ImageDescription { get; set; }

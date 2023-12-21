@@ -11,7 +11,7 @@
         <DockPanel>
             <StackPanel DockPanel.Dock="Left" Margin="20">
                 <TextBlock Text="Sessions" FontWeight="Bold" HorizontalAlignment="Center"/>
-                <ListView Width="200" ItemsSource="{Binding Sessions}" SelectedItem="{Binding SelectedSession}" DisplayMemberPath="SessionDescription">
+                <ListView Width="300" ItemsSource="{Binding Sessions}" SelectedItem="{Binding SelectedSession}" DisplayMemberPath="SessionDescription">
 
                 </ListView>
             </StackPanel>
@@ -28,7 +28,7 @@
                                 <StackPanel>
                                     <TextBlock Text="{Binding ImageDescription}" HorizontalAlignment="Center"/>
                                     <TextBlock Text="{Binding AnalysisResult}" HorizontalAlignment="Center"/>
-                                    <oxy:PlotView Height="200" Width="200" Model="{Binding GammaImage}" HorizontalAlignment="Center"/>
+                                    <oxy:PlotView Height="400" Width="400" Model="{Binding GammaImage}" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

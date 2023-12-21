@@ -1,4 +1,11 @@
-﻿using SamplePDSAPI.ViewModels;
+﻿/// THIS APPLICATION Source code is provide for educational pruposes only
+/// To show some of the features available in the Portal Dosimetry Scripting API.
+/// This application in no way holds any warranties or gaurantees and is not intented for clinical
+/// or research use of any kind.
+/// Please take care in evaluating any scripts or scripting functions prior to implementing them 
+/// into clinical or research use.
+
+using SamplePDSAPI.ViewModels;
 using SamplePDSAPI.Views;
 using System;
 using System.Collections.Generic;
@@ -15,7 +22,7 @@ namespace SamplePDSAPI
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
         private string _patientId;
         private string _pdPlanId;
@@ -41,7 +48,7 @@ namespace SamplePDSAPI
                     PDPlanSetup plan = patient.PDPlanSetups.FirstOrDefault(ps => ps.Id.Equals(_pdPlanId));//check null case for plan
                     MainView mainView = new MainView();
                     mainView.DataContext = new MainViewModel(plan);
-                    mainView.Show();
+                    mainView.ShowDialog();
                 }
             }
             catch(Exception ex) 

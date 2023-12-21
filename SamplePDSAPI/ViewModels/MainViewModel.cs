@@ -1,4 +1,5 @@
 ﻿using SamplePDSAPI.Models;
+using SamplePDSAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,9 @@ using VMS.DV.PD.Scripting;
 
 namespace SamplePDSAPI.ViewModels
 {
+    /// <summary>
+    /// ViewModel for Sessions and Field Analysis Display
+    /// </summary>
     public class MainViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -39,10 +43,14 @@ namespace SamplePDSAPI.ViewModels
         public MainViewModel(PDPlanSetup plan)
         {
             _pdPlan = plan;
+            analyzedItems = new List<SessionItem>();
             Sessions = new List<SessionItem>();
             SetSessions();
+            PDCalculationService.SetAnalysisTemplate();
         }
-
+        /// <summary>
+        /// Extract measured sessions from the current PDPlan
+        /// </summary>
         private void SetSessions()
         {
             foreach(var session in _pdPlan.Sessions) 
@@ -55,7 +63,11 @@ namespace SamplePDSAPI.ViewModels
                 });
             }
         }
-
+        /// <summary>
+        /// Calculate the SessionAnalyses.
+        /// 1. If the session has alredy been calculated, the analysis should be set to the analysis stored in memory.
+        /// 2. If this is a new analysis, use the PDCalculationService to calculate the analysis.
+        /// </summary>
         private void SetSessionAnalysisItems()
         {
             SelectedSession.SessionAnalyses.Clear();
@@ -68,9 +80,10 @@ namespace SamplePDSAPI.ViewModels
             }
             else
             {
-                foreach(var image in _pdPlan.Sessions.First(s=>s.Id == SelectedSession.SessionId).PortalDoseImages)
+                var session = _pdPlan.Sessions.First(s => s.Id == SelectedSession.SessionId);
+                foreach(var image in session.PortalDoseImages)
                 {
-                    SelectedSession.SessionAnalyses.Add()
+                    SelectedSession.SessionAnalyses.Add(PDCalculationService.PerformAnalysis(image, image.PDBeam.PredictedDoseImage));
                 }
             }
         }
